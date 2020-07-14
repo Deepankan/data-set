@@ -30,6 +30,7 @@ class Api::QuestionsController < Api::ApiController
   end
 
   def update_question
+
     begin
       question = Question.find_by_id(params[:id])
       question.attributes = params["question"].permit!
