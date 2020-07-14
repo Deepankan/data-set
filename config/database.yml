@@ -1,0 +1,24 @@
+base: &base
+  adapter: postgresql
+  encoding: utf8
+  username: deepankanchitragupt
+  password:
+  host: 127.0.0.1
+  pool: 5
+
+development:
+  <<: *base
+  database: data_set_development
+  #database: edge_development
+
+test:
+  <<: *base
+  database: data_set_test
+
+staging:
+  <<: *base
+  database: data_set_staging
+
+production:
+  <<: *base
+  database: data_set_production

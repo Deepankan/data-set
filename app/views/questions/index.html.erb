@@ -1,0 +1,123 @@
+<div class="container">
+  <p id="notice"><%= notice %></p>
+
+  <h1>Questions</h1>
+
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+   Import
+  </button>
+  <button type="button" id="add_form" class="btn btn-primary" data-toggle="modal" data-target="#exampleAddModal">
+   Add +
+  </button>
+
+  <br >
+  <div id="results">
+    <%= render partial: 'questions/results', locals: { questions: @questions } %>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Import Data </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_tag upload_question_csv_path, multipart: true, remote: true do %>
+        <div class="modal-body">
+
+          <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label font-weight-semibold">File to Upload</label> -->
+            <div class="col-lg-12">
+              <%= file_field_tag "file", class: 'file-input','data-show-preview'=> "false", 'data-show-upload': "false", 'data-show-caption': "true"%>
+              <!-- <input type="file" class="file-input" data-show-preview="false" data-fouc> -->
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+          <%= submit_tag "Upload data", class: 'btn bg-primary'%>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="exampleAddModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Data </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_tag add_question_path, multipart: true, remote: true do %>
+        <div class="modal-body">
+
+          <div class="form-group row">
+            <!-- <label class="col-lg-2 col-form-label font-weight-semibold">File to Upload</label> -->
+              <div class="form-group">
+                <label for="exampleInputText">Pri</label>
+                <%= text_field_tag 'priority', nil , class: 'form-control value_text', placeholder: 'Enter Pri'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Question</label>
+                <%= text_field_tag 'question', nil , class: 'form-control value_text', placeholder: 'Enter Question'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Teaming Stages</label>
+                <%= text_field_tag 'teaming_stage', nil , class: 'form-control value_text', placeholder: 'Enter Teaming Stages'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Appears (Day)</label>
+                <%= text_field_tag 'appears', nil , class: 'form-control value_text', placeholder: 'Enter Apprears (Day)'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Frequency</label>
+                <%= text_field_tag 'frequency', nil , class: 'form-control value_text', placeholder: 'Enter Frequency'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Type</label>
+                <%= text_field_tag 'type_question', nil , class: 'form-control value_text', placeholder: 'Enter Type'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Role</label>
+                <%= text_field_tag 'role', nil , class: 'form-control value_text', placeholder: 'Enter Role'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Required?</label>
+                <%= text_field_tag 'required', nil , class: 'form-control value_text', placeholder: 'Enter Required?'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Condition</label>
+                <%= text_field_tag 'condition', nil , class: 'form-control value_text', placeholder: 'Enter Condition'%>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputText">Mapping</label>
+                <%= text_field_tag 'mapping', nil , class: 'form-control value_text', placeholder: 'Enter Mapping'%>
+              </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+          <%= submit_tag "Add data", class: 'btn bg-primary'%>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).on('click', '#add_form', function(e) {
+    $('.value_text').val('')
+  })
+</script>

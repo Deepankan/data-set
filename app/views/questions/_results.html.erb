@@ -1,0 +1,73 @@
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Pri</th>
+        <th scope="col">Question</th>
+        <th scope="col">Teaming Stages</th>
+        <th scope="col">Appears (Day)</th>
+        <th scope="col">Frequency</th>
+        <th scope="col">Type</th>
+        <th scope="col">Role</th>
+        <th scope="col">Required?</th>
+        <th scope="col">Conditions</th>
+        <th scope="col">Mapping</th>
+        <th colspan="3">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% questions.each do | question |%>
+        <tr>
+          <th scope="row"><%= question.priority %></th>
+          <td><%= question.question %></td>
+          <td><%= question.teaming_stage %></td>
+          <td><%= question.appears %></td>
+          <td><%= question.frequency %></td>
+          <td><%= question.type_question %></td>
+          <td><%= question.role.name %></td>
+          <td><%= question.required %></td>
+          <td><%= question.condition %></td>
+          <td><%= question.mapping.name %></td>
+          <td><%= link_to 'Edit', '#', id: question.id, class: 'edit' %></td>
+          <td><%= link_to 'Delete', '#', id: question.id, class: 'delete' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div id="editModal">
+
+  </div>
+  <%= js_will_paginate questions %>
+
+  <script type="text/javascript">
+    $(document).on('click', '.edit', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      questionId = $(this).attr('id');
+      $.ajax({
+        type: 'GET',
+        url: '/questions/edit_question',
+        data: { id: questionId },
+        success: function(data){
+          $('#editModal').html(data)
+          // $('#exampleEditModal').show()
+          $('#exampleEditModal').modal('show');
+        },error: function(data){
+          return false}
+      });
+    });
+     $(document).on('click', '.delete', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      questionId = $(this).attr('id');
+      $.ajax({
+        type: 'GET',
+        url: '/questions/delete_question',
+        data: { id: questionId },
+        success: function(data){
+          $('#results').html(data)
+        },error: function(data){
+          return false}
+      });
+    });
+  </script>
